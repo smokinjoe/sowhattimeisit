@@ -16,6 +16,10 @@
   margin-top: 15px;
 }
 
+.offset-container {
+  margin-top: 5px;
+}
+
 .answer-container {
   width: 100%;
   margin-top: 15px;
@@ -23,6 +27,7 @@
 
 .answer {
   width: 190px;
+  margin-bottom: 5px;
 }
 
 .error {
