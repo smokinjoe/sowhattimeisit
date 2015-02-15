@@ -13,7 +13,8 @@
       $submitBtn = $('.submit-answer'),
       $populateBtn = $('.populate'),
       $rightScore = $('.num-right'),
-      $wrongScore = $('.num-wrong');
+      $wrongScore = $('.num-wrong'),
+      $messageContainer = $('.message-container');
 
 
   // private methods
@@ -68,11 +69,11 @@
     }
 
     if (hoursMatch && minutesMatch) {
-      alert('fuck yeah, you did it!');
+      displayMessage('fuck yeah, you did it!');
       score.right++;
     }
     else {
-      alert('sorry, try again!');
+      displayMessage('sorry, try again!');
       $container.addClass('error');
       score.wrong++;
     }
@@ -83,6 +84,16 @@
   var updateScore = function () {
     $rightScore.html(score.right);
     $wrongScore.html(score.wrong);
+  };
+
+  var displayMessage = function (msg) {
+    $messageContainer.html(msg).show(function () {
+      window.setTimeout(function () {
+        $messageContainer.fadeOut(function () {
+          $messageContainer.html('');
+        });
+      }, 1500);
+    });
   };
 
   // public methods

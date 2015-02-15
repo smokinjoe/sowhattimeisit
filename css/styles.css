@@ -1,3 +1,7 @@
+html {
+  font-family: "Helvetica Neue", Helvetica;
+}
+
 .container {
   width: 200px;
   margin: 40px auto;
@@ -28,6 +32,15 @@
 .answer {
   width: 190px;
   margin-bottom: 5px;
+}
+
+.message-container {
+  margin-top: 15px;
+
+  padding: 7px;
+  /*background: rgb(231, 147, 147);*/
+  background: #ccc;
+  display: none;
 }
 
 .error {
