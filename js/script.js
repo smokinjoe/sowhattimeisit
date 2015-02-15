@@ -20,6 +20,9 @@
   // private methods
   var init = function () {
     var data;
+
+    JStore.init('POP');
+
     // get this shit started!
     for (var i = 0; i < 24; i++) {
       hours.push(i);
@@ -84,6 +87,12 @@
   var updateScore = function () {
     $rightScore.html(score.right);
     $wrongScore.html(score.wrong);
+
+    // JOE: necessary or it'll just keep adding more and more - which I don't want to do, I want to just replace the data
+    JStore.clear();
+    // JOE: I think if I take some time to work on JocalStorage's initialization options, I could probably take care of this shit
+
+    JStore.store(score);
   };
 
   var displayMessage = function (msg) {
