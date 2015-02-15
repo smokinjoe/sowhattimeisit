@@ -4,6 +4,7 @@
       minutes = [];
       currentProblem = {},
       currentAnswer = {},
+      $container = $('.container'),
       $hours = $('.hours'),
       $minutes = $('.minutes'),
       $offset = $('.offset'),
@@ -35,7 +36,9 @@
     $minutes.html(currentProblem.minute);
     $offset.html(currentProblem.offset);
 
+    // JOE: looks like we got the beginnings of some clear() method
     $answer.val('');
+    $container.removeClass('error');
   };
 
   Pop.submit = function () {
@@ -65,6 +68,8 @@
     var minutesMatch = false,
         hoursMatch = false;
 
+    $container.removeClass('error');
+
     if ((currentProblem.hour + currentProblem.offset) == currentAnswer.hour) {
       hoursMatch = true;
     }
@@ -79,6 +84,7 @@
     }
     else {
       alert('sorry, try again!');
+      $container.addClass('error');
     }
 
   };

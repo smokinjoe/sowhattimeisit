@@ -1,4 +1,4 @@
-#container {
+.container {
   width: 200px;
   margin: 40px auto;
   padding: 10px;
@@ -15,4 +15,8 @@
 
 .answer {
   width: 190px;
+}
+
+.error {
+  border: 1px solid red;
 }
