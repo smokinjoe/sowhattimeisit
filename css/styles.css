@@ -9,6 +9,15 @@ html {
   border: 1px solid #ccc;
 }
 
+.intro-box {
+  text-align: center;
+  line-height: 100%;
+}
+
+.game-box {
+  display: none;
+}
+
 .score-container {
   border: 1px solid #ccc;
   padding: 5px 0;

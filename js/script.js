@@ -12,6 +12,7 @@
       $answer = $('.answer'),
       $submitBtn = $('.submit-answer'),
       $populateBtn = $('.populate'),
+      $getStartedBtn = $('.get-started'),
       $rightScore = $('.num-right'),
       $wrongScore = $('.num-wrong'),
       $messageContainer = $('.message-container');
@@ -89,10 +90,10 @@
     $wrongScore.html(score.wrong);
 
     // JOE: necessary or it'll just keep adding more and more - which I don't want to do, I want to just replace the data
-    JStore.clear();
+    //JStore.clear();
     // JOE: I think if I take some time to work on JocalStorage's initialization options, I could probably take care of this shit
 
-    JStore.store(score);
+    //JStore.store(score);
   };
 
   var displayMessage = function (msg) {
@@ -139,6 +140,13 @@
 
   $submitBtn.on('click', function () {
     Pop.submit();
+  });
+
+  $getStartedBtn.on('click', function () {
+    $('.intro-box').fadeOut(function () {
+      $('.game-box').fadeIn();
+      Pop.populate();
+    });
   });
 
   init();
