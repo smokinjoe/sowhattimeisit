@@ -5,6 +5,9 @@
       currentProblem = {},
       currentAnswer = {},
       score = {},
+      level = 1,
+      levelMessages = [],
+      winsPerLevel = 1,
       $container = $('.container'),
       $hours = $('.hours'),
       $minutes = $('.minutes'),
@@ -17,6 +20,12 @@
       $wrongScore = $('.num-wrong'),
       $messageContainer = $('.message-container');
 
+      levelMessages = [
+        'null',
+        'Beginnings.',
+        'The offset will now disappear after 2 seconds.',
+        'The offset will remain and the time will disappear after 4 seconds.'
+      ];
 
   // private methods
   var init = function () {
@@ -50,11 +59,11 @@
   };
 
   var randomOffset = function () {
-    var offset = 0 - (Math.random() * 10 | 0);
-    if (Math.abs(offset) > currentProblem.hour) {
-      return randomOffset(); // JOE: hopefully this works JUST good enough
-    }
-    return offset;
+    //var offset = 0 - (Math.random() * 10 | 0);
+    //if (Math.abs(offset) > currentProblem.hour) {
+    //  return randomOffset(); // JOE: hopefully this works JUST good enough
+    //}
+    return -getRandomInt(1,3);
   };
 
   var checkAnswer = function () {
@@ -73,11 +82,15 @@
     }
 
     if (hoursMatch && minutesMatch) {
-      displayMessage('fuck yeah, you did it!');
+      displayMessage('Correct');
+      Pop.populate();
       score.right++;
+      if (score.right > level * winsPerLevel) {
+        alert(levelMessages[level++]);
+      }
     }
     else {
-      displayMessage('sorry, try again!');
+      displayMessage('try again!');
       $container.addClass('error');
       score.wrong++;
     }
@@ -106,6 +119,10 @@
     });
   };
 
+  var getRandomInt = function (min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  };
+
   // public methods
   Pop.populate = function () {
     currentProblem.hour = randomArrValue(hours), 
@@ -118,6 +135,25 @@
     }
     $minutes.html(currentProblem.minute);
     $offset.html(currentProblem.offset);
+
+    // JOE: this should be some sort of test or constant or something..
+    // who knows, I'm tired.
+    if (level === 1) {
+      window.setTimeout(function () {
+        $offset.fadeOut(function (){
+          $offset.html('').fadeIn();
+        });
+      }, 2000);
+    }
+    else if (level === 2) {
+      window.setTimeout(function () {
+        $hours.fadeOut();
+        $minutes.fadeOut(function () {
+          $hours.html('').fadeIn();
+          $minutes.html('').fadeIn();
+        });
+      }, 4000);
+    }
 
     // JOE: looks like we got the beginnings of some clear() method
     $answer.val('');
