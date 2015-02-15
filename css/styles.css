@@ -5,12 +5,20 @@
   border: 1px solid #ccc;
 }
 
+.score-container {
+  border: 1px solid #ccc;
+  padding: 5px 0;
+  text-align: center;
+}
+
 .problem-container {
   width: 100%;
+  margin-top: 15px;
 }
 
 .answer-container {
   width: 100%;
+  margin-top: 15px;
 }
 
 .answer {
