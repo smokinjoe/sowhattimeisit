@@ -1,0 +1,18 @@
+#container {
+  width: 200px;
+  margin: 40px auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.problem-container {
+  width: 100%;
+}
+
+.answer-container {
+  width: 100%;
+}
+
+.answer {
+  width: 190px;
+}
