@@ -2,6 +2,10 @@ html {
   font-family: "Helvetica Neue", Helvetica;
 }
 
+body {
+  position: relative;
+}
+
 .container {
   width: 200px;
   margin: 40px auto;
@@ -19,8 +23,8 @@ html {
 }
 
 .score-container {
-  border: 1px solid #ccc;
-  padding: 5px 0;
+  /*border: 1px solid #ccc;
+  padding: 5px 0;*/
   text-align: center;
 }
 
@@ -39,7 +43,7 @@ html {
 }
 
 .answer {
-  width: 190px;
+  width: 180px;
   margin-bottom: 5px;
 }
 
@@ -47,11 +51,16 @@ html {
   margin-top: 15px;
 
   padding: 7px;
-  /*background: rgb(231, 147, 147);*/
   background: #ccc;
   display: none;
 }
 
 .error {
   border: 1px solid red;
+  background: rgb(231, 147, 147);
+}
+
+.success {
+  border: 1px solid green;
+  background: rgb(200, 224, 200);
 }

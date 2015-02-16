@@ -5,9 +5,9 @@
       currentProblem = {},
       currentAnswer = {},
       score = {},
-      level = 1,
-      levelMessages = [],
-      winsPerLevel = 1,
+      level = 1, // unused for now
+      levelMessages = [], // unused for now
+      winsPerLevel = 1, // unused for now
       $container = $('.container'),
       $hours = $('.hours'),
       $minutes = $('.minutes'),
@@ -20,6 +20,7 @@
       $wrongScore = $('.num-wrong'),
       $messageContainer = $('.message-container');
 
+      // JOE: unused for now
       levelMessages = [
         'Beginnings.',
         'The offset will now disappear after 2 seconds.',
@@ -69,8 +70,6 @@
     var minutesMatch = false,
         hoursMatch = false;
 
-    $container.removeClass('error');
-
     if ((currentProblem.hour + currentProblem.offset) == currentAnswer.hour) {
       hoursMatch = true;
     }
@@ -81,7 +80,7 @@
     }
 
     if (hoursMatch && minutesMatch) {
-      displayMessage('Correct');
+      displayMessage('Correct', 'success');
       Pop.populate();
       score.right++;
       //if (score.right > level * winsPerLevel) {
@@ -89,8 +88,7 @@
       //}
     }
     else {
-      displayMessage('try again!');
-      $container.addClass('error');
+      displayMessage('try again!', 'error');
       score.wrong++;
     }
 
@@ -108,11 +106,14 @@
     //JStore.store(score);
   };
 
-  var displayMessage = function (msg) {
+  var displayMessage = function (msg, msgClass) {
+    msgClass = msgClass || '';
+    $messageContainer.addClass(msgClass);
     $messageContainer.html(msg).show(function () {
       window.setTimeout(function () {
         $messageContainer.fadeOut(function () {
           $messageContainer.html('');
+          $messageContainer.removeClass(msgClass);
         });
       }, 1500);
     });
@@ -156,7 +157,6 @@
 
     // JOE: looks like we got the beginnings of some clear() method
     $answer.val('');
-    $container.removeClass('error');
   };
 
   Pop.submit = function () {
