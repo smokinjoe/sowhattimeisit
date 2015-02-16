@@ -16,6 +16,7 @@
       $answer = $('.answer'),
       $submitBtn = $('.submit-answer'),
       $populateBtn = $('.populate'),
+      $showAnswerBtn = $('.show-answer'),
       $getStartedBtn = $('.get-started'),
       $rightScore = $('.num-right'),
       $wrongScore = $('.num-wrong'),
@@ -140,7 +141,8 @@
     //JStore.store(score);
   };
 
-  var displayMessage = function (msg, msgClass) {
+  var displayMessage = function (msg, msgClass, duration) {
+    duration = duration || 1500;
     msgClass = msgClass || '';
     $messageContainer.addClass(msgClass);
     $messageContainer.html(msg).show(function () {
@@ -149,7 +151,7 @@
           $messageContainer.html('');
           $messageContainer.removeClass(msgClass);
         });
-      }, 1500);
+      }, duration);
     });
   };
 
@@ -238,6 +240,20 @@
     }, 200);
   };
 
+  Pop.showAnswer = function (confirmed) {
+    var answer = {};
+    confirmed = confirmed || confirm("Are you sure you want to see the answer?");
+    if (confirmed) {
+      answer.hour = currentProblem.hour + currentProblem.offset;
+      answer.minute = currentProblem.minute;
+      if (answer.hour > 12) {
+        answer.hour -= 12;
+      }
+
+      displayMessage('The answer is, ' + answer.hour + ':' + answer.minute, 'success', 5000);
+    }
+  };
+
   Pop.debug = function (options) {
     options = options || {};
 
@@ -296,6 +312,10 @@
 
   $burger.on('click', function () {
     Pop.showMenu();
+  });
+
+  $showAnswerBtn.on('click', function () {
+    Pop.showAnswer();
   });
 
   init();

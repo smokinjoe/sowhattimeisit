@@ -34,9 +34,14 @@
 
         <div class="answer-container">
           <h4>So what time is it? <small>(You can leave off am/pm)</small></h4>
-          <div><input class="answer" /></div>
-          <button class="submit-answer btn btn-sm btn-default">Submit</button>
-          <button class="populate btn btn-sm btn-default">New game</button>
+          <div class="input-group">
+            <input type="text" class="answer form-control" />
+            <span class="input-group-btn">
+              <button class="submit-answer btn btn-default">Submit!</button>
+              <button class="populate btn btn-default">New game</button>
+            </span>
+          </div><br/>
+          <button class="show-answer btn btn-warning btn-sm">Show answer</button>
         </div>
 
         <div class="message-container">
