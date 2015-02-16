@@ -10,34 +10,39 @@
 </head>
 <body>
   <div class="container">
-    <div class="intro-box">
-      <button class="get-started btn btn-lg btn-primary">Get started!</button>
+    <button class="hidden command-hamburger btn btn-sm btn-info">Menu <span class="glyphicon glyphicon-menu-hamburger"></span></button>
+    <div class="burger-menu">
+      <p>Lorem ipsum dolor sit amet.</p>
     </div>
-    <div class="game-box">
-      <div class="score-container well">
-        <h4>Right: <span class="num-right"></span></h4>
-        <h4>Wrong: <span class="num-wrong"></span></h4>
+    <div class="game-container">
+      <div class="intro-box">
+        <button class="get-started btn btn-lg btn-primary">Get started!</button>
       </div>
-      <div class="problem-container">
-        <div class="time-container">
-          Time <span class="hours">00</span> : <span class="minutes">00</span>
+      <div class="game-box">
+        <div class="score-container well">
+          <h4>Right: <span class="num-right"></span></h4>
+          <h4>Wrong: <span class="num-wrong"></span></h4>
         </div>
-        <div class="offset-container">
-          Offset <span class="offset">0</span>
+        <div class="problem-container">
+          <div class="time-container">
+            Time <span class="hours">00</span> : <span class="minutes">00</span> <span class="ampm"></span>
+          </div>
+          <div class="offset-container">
+            Offset <span class="offset">0</span>
+          </div>
         </div>
-      </div>
 
-      <div class="answer-container">
-        <input class="answer" />
-        <button class="submit-answer btn btn-sm btn-default">Submit</button>
-        <button class="populate btn btn-sm btn-default">New game</button>
-      </div>
+        <div class="answer-container">
+          <input class="answer" />
+          <button class="submit-answer btn btn-sm btn-default">Submit</button>
+          <button class="populate btn btn-sm btn-default">New game</button>
+        </div>
 
-      <div class="message-container">
+        <div class="message-container">
+        </div>
       </div>
     </div>
   </div>
-
   <script type="text/javascript" src="js/jquery.js"></script>
   <script type="text/javascript" src="js/lodash.js"></script>
   <script type="text/javascript" src="http://localhost:3011/JocalStorage.js"></script>

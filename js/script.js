@@ -8,9 +8,10 @@
       level = 1, // unused for now
       levelMessages = [], // unused for now
       winsPerLevel = 1, // unused for now
-      $container = $('.container'),
+      $gameContainer = $('.game-container'),
       $hours = $('.hours'),
       $minutes = $('.minutes'),
+      $ampm = $('.ampm'),
       $offset = $('.offset'),
       $answer = $('.answer'),
       $submitBtn = $('.submit-answer'),
@@ -18,7 +19,12 @@
       $getStartedBtn = $('.get-started'),
       $rightScore = $('.num-right'),
       $wrongScore = $('.num-wrong'),
-      $messageContainer = $('.message-container');
+      $messageContainer = $('.message-container'),
+      $burger = $('.command-hamburger'),
+      $burgerMenu = $('.burger-menu');
+
+    var AM = 'am',
+        PM = 'pm';
 
       // JOE: unused for now
       levelMessages = [
@@ -69,6 +75,10 @@
   var checkAnswer = function () {
     var minutesMatch = false,
         hoursMatch = false;
+
+    if (currentProblem.hour > 12) {
+      currentAnswer.hour = parseInt(currentAnswer.hour) + 12;
+    }
 
     if ((currentProblem.hour + currentProblem.offset) == currentAnswer.hour) {
       hoursMatch = true;
@@ -125,11 +135,21 @@
 
   // public methods
   Pop.populate = function () {
-    currentProblem.hour = randomArrValue(hours), 
+    currentProblem.hour = getRandomInt(4, 24), 
     currentProblem.minute = randomArrValue(minutes),
     currentProblem.offset = randomOffset();
 
-    $hours.html(currentProblem.hour);
+    if (currentProblem.hour > 12) {
+      currentProblem.displayHour = currentProblem.hour - 12;
+      currentProblem.ampm = PM;
+    }
+    else {
+      currentProblem.displayHour = currentProblem.hour;
+      currentProblem.ampm = AM;
+    }
+    $hours.html(currentProblem.displayHour);
+    $ampm.html(currentProblem.ampm);
+
     if (currentProblem.minute < 10) {
       currentProblem.minute = "0" + currentProblem.minute;
     }
@@ -168,6 +188,20 @@
     checkAnswer();
   };
 
+  Pop.showMenu = function () {
+    $burger.hide();
+    $burgerMenu.animate({
+      left: '0px'
+    }, 700);
+  };
+
+  Pop.hideMenu = function () {
+    $burger.show();
+    $burgerMenu.animate({
+      left: '-400px'
+    }, 200);
+  };
+
   // event bindings
   $populateBtn.on('click', function () {
     Pop.populate();
@@ -182,6 +216,10 @@
       $('.game-box').fadeIn();
       Pop.populate();
     });
+  });
+
+  $burger.on('click', function () {
+    Pop.showMenu();
   });
 
   init();

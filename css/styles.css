@@ -2,11 +2,22 @@ html {
   font-family: "Helvetica Neue", Helvetica;
 }
 
-body {
+.container {
   position: relative;
 }
 
-.container {
+.command-hamburger {
+  position: absolute;
+}
+
+.burger-menu {
+  position: absolute;
+  right: -400px;
+  width: 400px;
+  background: blue;
+}
+
+.game-container {
   width: 200px;
   margin: 40px auto;
   padding: 10px;
