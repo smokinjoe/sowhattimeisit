@@ -23,19 +23,26 @@
       $burger = $('.command-hamburger'),
       $burgerMenu = $('.burger-menu');
 
-    var AM = 'am',
-        PM = 'pm';
+  var AM = 'am',
+      PM = 'pm';
 
-    var AMPMTEXT = {};
-    AMPMTEXT[AM] = ' in the morning.';
-    AMPMTEXT[PM] = ' in the afternoon.';
+  var AMPMTEXT = {};
+  AMPMTEXT[AM] = ' in the morning.';
+  AMPMTEXT[PM] = ' in the afternoon.';
 
-      // JOE: unused for now
-      levelMessages = [
-        'Beginnings.',
-        'The offset will now disappear after 2 seconds.',
-        'The offset will remain and the time will disappear after 4 seconds.'
-      ];
+  var FAST = 'fast';
+      SLOW = 'slow';
+
+  var OFFSETTEXT = {};
+  OFFSETTEXT[FAST] = ' hour(s) fast.';
+  OFFSETTEXT[SLOW] = ' hour(s) slow.';
+
+    // JOE: unused for now
+  var levelMessages = [
+    'Beginnings.',
+    'The offset will now disappear after 2 seconds.',
+    'The offset will remain and the time will disappear after 4 seconds.'
+  ];
 
   // private methods
   var init = function () {
@@ -73,7 +80,7 @@
     //if (Math.abs(offset) > currentProblem.hour) {
     //  return randomOffset(); // JOE: hopefully this works JUST good enough
     //}
-    return -getRandomInt(1,3);
+    return -getRandomInt(0,3);
   };
 
   var checkAnswer = function () {
@@ -152,9 +159,15 @@
 
   // public methods
   Pop.populate = function () {
+    var offsetText = '';
+
     currentProblem.hour = getRandomInt(4, 24), 
     currentProblem.minute = randomArrValue(minutes),
     currentProblem.offset = randomOffset();
+
+    if (currentProblem.offset !== 0) {
+      offsetText = currentProblem.offset > 0 ? OFFSETTEXT[SLOW] : OFFSETTEXT[FAST];
+    }
 
     if (currentProblem.hour > 12) {
       currentProblem.displayHour = currentProblem.hour - 12;
@@ -171,7 +184,13 @@
       currentProblem.minute = "0" + currentProblem.minute;
     }
     $minutes.html(currentProblem.minute);
-    $offset.html(currentProblem.offset);
+    //$offset.html(currentProblem.offset);
+    if (currentProblem.offset !== 0) {
+      $offset.html(Math.abs(currentProblem.offset) + offsetText);
+    }
+    else {
+      $offset.html(offsetText);
+    }
 
     // JOE: this should be some sort of test or constant or something..
     // who knows, I'm tired.
@@ -237,7 +256,7 @@
     }
 
     if (options.minute) {
-      currentProble.minute = options.minute;
+      currentProblem.minute = options.minute;
       if (currentProblem.minute < 10) {
         currentProblem.minute = "0" + currentProblem.minute;
       }
@@ -258,6 +277,14 @@
 
   $submitBtn.on('click', function () {
     Pop.submit();
+  });
+
+  $answer.on('keyup', function (e) {
+    var $input = $(this),
+        code = e.which;
+    if (code === 13) {
+      Pop.submit();
+    }
   });
 
   $getStartedBtn.on('click', function () {
