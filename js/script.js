@@ -122,7 +122,7 @@
       //}
     }
     else {
-      displayMessage('try again!', 'error');
+      displayMessage('Try again!', 'error');
       score.wrong++;
     }
 
@@ -159,7 +159,7 @@
 
   // public methods
   Pop.populate = function () {
-    var offsetText = '';
+    var offsetText = 'on time.';
 
     currentProblem.hour = getRandomInt(4, 24), 
     currentProblem.minute = randomArrValue(minutes),
