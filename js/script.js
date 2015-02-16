@@ -26,6 +26,10 @@
     var AM = 'am',
         PM = 'pm';
 
+    var AMPMTEXT = {};
+    AMPMTEXT[AM] = ' in the morning.';
+    AMPMTEXT[PM] = ' in the afternoon.';
+
       // JOE: unused for now
       levelMessages = [
         'Beginnings.',
@@ -76,7 +80,20 @@
     var minutesMatch = false,
         hoursMatch = false;
 
-    if (currentProblem.hour > 12) {
+    currentAnswer.minute.replace('am','');
+    currentAnswer.minute.replace('AM','');
+    currentAnswer.minute.replace('a.m.','');
+    currentAnswer.minute.replace('A.M.','');
+    currentAnswer.minute.replace('am.','');
+    currentAnswer.minute.replace('AM.','');
+    currentAnswer.minute.replace('pm','');
+    currentAnswer.minute.replace('PM','');
+    currentAnswer.minute.replace('p.m.','');
+    currentAnswer.minute.replace('P.M.','');
+    currentAnswer.minute.replace('pm.','');
+    currentAnswer.minute.replace('PM.','');
+
+    if (currentProblem.hour + currentProblem.offset > 12) {
       currentAnswer.hour = parseInt(currentAnswer.hour) + 12;
     }
 
@@ -148,7 +165,7 @@
       currentProblem.ampm = AM;
     }
     $hours.html(currentProblem.displayHour);
-    $ampm.html(currentProblem.ampm);
+    $ampm.html(AMPMTEXT[currentProblem.ampm]);
 
     if (currentProblem.minute < 10) {
       currentProblem.minute = "0" + currentProblem.minute;
@@ -200,6 +217,38 @@
     $burgerMenu.animate({
       left: '-400px'
     }, 200);
+  };
+
+  Pop.debug = function (options) {
+    options = options || {};
+
+    if (options.hour) {
+      currentProblem.hour = options.hour;
+      if (currentProblem.hour > 12) {
+        currentProblem.displayHour = currentProblem.hour - 12;
+        currentProblem.ampm = PM;
+      }
+      else {
+        currentProblem.displayHour = currentProblem.hour;
+        currentProblem.ampm = AM;
+      }
+      $hours.html(currentProblem.displayHour);
+      $ampm.html(AMPMTEXT[currentProblem.ampm]);
+    }
+
+    if (options.minute) {
+      currentProble.minute = options.minute;
+      if (currentProblem.minute < 10) {
+        currentProblem.minute = "0" + currentProblem.minute;
+      }
+      $minutes.html(currentProblem.minute);
+    }
+
+    if (options.offset) {
+      currentProblem.offset = options.offset;
+      $offset.html(currentProblem.offset);
+    }
+
   };
 
   // event bindings
