@@ -2,16 +2,21 @@
 <head>
   <meta http-equiv="Content-type" content="text/html; charset=utf-8">
   <title>So, what time is it??</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
   <link rel="stylesheet" type="text/css" href="css/styles.css" />
 </head>
 <body>
   <div class="container">
     <div class="intro-box">
-      <button class="get-started">Get started!</button>
+      <button class="get-started btn btn-lg btn-primary">Get started!</button>
     </div>
     <div class="game-box">
-      <div class="score-container">
-        Right <span class="num-right"></span> : <span class="num-wrong"></span> Wrong
+      <div class="score-container well">
+        <h4>Right: <span class="num-right"></span></h4>
+        <h4>Wrong: <span class="num-wrong"></span></h4>
       </div>
       <div class="problem-container">
         <div class="time-container">
@@ -24,8 +29,8 @@
 
       <div class="answer-container">
         <input class="answer" />
-        <button class="submit-answer">Submit</button>
-        <button class="populate">Populate</button>
+        <button class="submit-answer btn btn-sm btn-default">Submit</button>
+        <button class="populate btn btn-sm btn-default">New game</button>
       </div>
 
       <div class="message-container">
@@ -34,8 +39,9 @@
   </div>
 
   <script type="text/javascript" src="js/jquery.js"></script>
-  <script type="text/javascript" src="http://localhost:3011/lodash.js"></script>
+  <script type="text/javascript" src="js/lodash.js"></script>
   <script type="text/javascript" src="http://localhost:3011/JocalStorage.js"></script>
+  <script type="text/javascript" src="js/bootstrap.js"></script>
   <script type="text/javascript" src="js/script.js"></script>
 
 <!--
