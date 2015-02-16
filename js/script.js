@@ -21,7 +21,6 @@
       $messageContainer = $('.message-container');
 
       levelMessages = [
-        'null',
         'Beginnings.',
         'The offset will now disappear after 2 seconds.',
         'The offset will remain and the time will disappear after 4 seconds.'
@@ -85,9 +84,9 @@
       displayMessage('Correct');
       Pop.populate();
       score.right++;
-      if (score.right > level * winsPerLevel) {
-        alert(levelMessages[level++]);
-      }
+      //if (score.right > level * winsPerLevel) {
+      //  alert(levelMessages[level++]);
+      //}
     }
     else {
       displayMessage('try again!');
@@ -138,22 +137,22 @@
 
     // JOE: this should be some sort of test or constant or something..
     // who knows, I'm tired.
-    if (level === 1) {
-      window.setTimeout(function () {
-        $offset.fadeOut(function (){
-          $offset.html('').fadeIn();
-        });
-      }, 2000);
-    }
-    else if (level === 2) {
-      window.setTimeout(function () {
-        $hours.fadeOut();
-        $minutes.fadeOut(function () {
-          $hours.html('').fadeIn();
-          $minutes.html('').fadeIn();
-        });
-      }, 4000);
-    }
+    //if (level === 2) {
+    //  window.setTimeout(function () {
+    //    $offset.fadeOut(function (){
+    //      $offset.html('').fadeIn();
+    //    });
+    //  }, 2000);
+    //}
+    //else if (level === 3) {
+    //  window.setTimeout(function () {
+    //    $hours.fadeOut();
+    //    $minutes.fadeOut(function () {
+    //      $hours.html('').fadeIn();
+    //      $minutes.html('').fadeIn();
+    //    });
+    //  }, 4000);
+    //}
 
     // JOE: looks like we got the beginnings of some clear() method
     $answer.val('');
