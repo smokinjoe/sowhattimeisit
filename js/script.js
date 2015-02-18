@@ -180,7 +180,7 @@
       currentProblem.ampm = AM;
     }
     $hours.html(currentProblem.displayHour);
-    $ampm.html(AMPMTEXT[currentProblem.ampm]);
+    $ampm.html(AMPMTEXT[currentProblem.ampm]);    
 
     if (currentProblem.minute < 10) {
       currentProblem.minute = "0" + currentProblem.minute;
@@ -193,6 +193,19 @@
     else {
       $offset.html(offsetText);
     }
+
+    var sdegree = 0 * 6;
+    var srotate = "rotate(" + sdegree + "deg)";
+
+    var hdegree = currentProblem.displayHour * 30 + (currentProblem.minute / 2);
+    var hrotate = "rotate(" + hdegree + "deg)";
+
+    var mdegree = currentProblem.minute * 6;
+    var mrotate = "rotate(" + mdegree + "deg)";
+
+    $("#sec").css({"-moz-transform" : srotate, "-webkit-transform" : srotate});
+    $("#hour").css({"-moz-transform" : hrotate, "-webkit-transform" : hrotate});
+    $("#min").css({"-moz-transform" : mrotate, "-webkit-transform" : mrotate});
 
     // JOE: this should be some sort of test or constant or something..
     // who knows, I'm tired.

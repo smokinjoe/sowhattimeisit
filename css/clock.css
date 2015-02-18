@@ -1,0 +1,36 @@
+#clock, #sec, #min, #hour {
+  padding: 0;
+  margin: 0;
+}
+
+#clock {
+	position: relative;
+	width: 300px;
+	height: 300px;
+	margin: 20px auto 0 auto;
+	background: url(/images/clockface.jpg);
+	list-style: none;
+	}
+
+#sec, #min, #hour {
+	position: absolute;
+	width: 30px;
+	height: 300px;
+	top: 0px;
+	left: 285px;
+	}
+
+#sec {
+	background: url(/images/sechand.png);
+	z-index: 3;
+   	}
+   
+#min {
+	background: url(/images/minhand.png);
+	z-index: 2;
+   	}
+   
+#hour {
+	background: url(/images/hourhand.png);
+	z-index: 1;
+   	}

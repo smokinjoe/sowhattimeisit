@@ -44,6 +44,10 @@ html {
   margin-top: 15px;
 }
 
+.analog-clock {
+  display: none;
+}
+
 .offset-container {
   margin-top: 5px;
 }
