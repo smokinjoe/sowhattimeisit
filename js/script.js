@@ -300,7 +300,7 @@
         answer.hour -= 12;
       }
 
-      displayMessage('The answer is, ' + answer.hour + ':' + answer.minute, 'success', 5000);
+      displayMessage('The answer is, ' + answer.hour + ':' + answer.minute, 'info', 5000);
     }
   };
 

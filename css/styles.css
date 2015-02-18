@@ -76,10 +76,15 @@ html {
 
 .error {
   border: 1px solid red;
-  background: rgb(231, 147, 147);
+  background: rgb(253, 232, 232);
 }
 
 .success {
   border: 1px solid green;
   background: rgb(200, 224, 200);
+}
+
+.info {
+  border: 1px solid #028CFF;
+  background: #D6ECFF;
 }
