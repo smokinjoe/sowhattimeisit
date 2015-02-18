@@ -8,7 +8,10 @@
       level = 1, // unused for now
       levelMessages = [], // unused for now
       winsPerLevel = 1, // unused for now
-      canvas = {}, // raphael.js canvas
+      canvas = Raphael("clock", 200, 200), // raphael.js canvas
+      clock = canvas.circle(100, 100, 95),
+      hourHand = {},
+      minuteHand = {},
       $gameContainer = $('.game-container'),
       $hours = $('.hours'),
       $minutes = $('.minutes'),
@@ -70,6 +73,7 @@
       score.wrong = 0;
     }
     updateScore();
+    drawClock();
   };
 
   var randomArrValue = function (arr) {
@@ -110,9 +114,23 @@
       hoursMatch = true;
     }
 
+    console.log("JOE: hoursMatch: ", hoursMatch);
+
     // totally +cheating
     if (currentProblem.minute == +currentAnswer.minute) {
       minutesMatch = true;
+    }
+    else if (hoursMatch) {
+      // get roughly what time it is
+      var lowEnd = currentAnswer.minute > 4 ? +currentAnswer.minute - 5 : 4;
+      var highEnd = currentAnswer.minute < 54 ? +currentAnswer.minute + 5 : 59;
+
+      console.log("JOE: lowEnd: ", lowEnd);
+      console.log("JOE: highEnd: ", highEnd);
+
+      if (lowEnd <= currentAnswer.minute <= highEnd) {
+        minutesMatch = true;
+      }
     }
 
     if (hoursMatch && minutesMatch) {
@@ -162,10 +180,9 @@
 
   // clock drawing and upating utility methods
   function drawClock(){
-    canvas = Raphael("clock",200, 200);
-    var clock = canvas.circle(100,100,95);
-       clock.attr({"fill":"#f5f5f5","stroke":"#444444","stroke-width":"5"})  
-       var hour_sign;
+    var hour_sign;
+
+    clock.attr({"fill":"#f5f5f5","stroke":"#444444","stroke-width":"5"});
     for(i=0;i<12;i++){
       var start_x = 100+Math.round(80*Math.cos(30*i*Math.PI/180));
       var start_y = 100+Math.round(80*Math.sin(30*i*Math.PI/180));
@@ -173,20 +190,26 @@
       var end_y = 100+Math.round(90*Math.sin(30*i*Math.PI/180));  
       hour_sign = canvas.path("M"+start_x+" "+start_y+"L"+end_x+" "+end_y);
     }    
-    hour_hand = canvas.path("M100 100L100 50");
-    hour_hand.attr({stroke: "#444444", "stroke-width": 6});
-    minute_hand = canvas.path("M100 100L100 40");
-    minute_hand.attr({stroke: "#444444", "stroke-width": 4});
     var pin = canvas.circle(100, 100, 5);
     pin.attr("fill", "#000000");    
+
     updateClock()
   }
   
   function updateClock(){
-    var hours = +currentProblem.displayHour;
-    var minutes = currentProblem.minute;
-    hour_hand.rotate(30*hours+(minutes/2.5), 100, 100);
-    minute_hand.rotate(6*minutes, 100, 100);
+    if (hourHand.remove) {
+      hourHand.remove();
+    }
+    if (minuteHand.remove) {
+      minuteHand.remove();
+    }
+
+    hourHand = canvas.path("M100 100L100 50");
+    hourHand.attr({stroke: "#444444", "stroke-width": 6});
+    minuteHand = canvas.path("M100 100L100 40");
+    minuteHand.attr({stroke: "#444444", "stroke-width": 4});
+    hourHand.rotate(30 * currentProblem.displayHour + (currentProblem.minute / 2.5), 100, 100);
+    minuteHand.rotate(6 * currentProblem.minute, 100, 100);
   }
 
   // public methods
@@ -243,7 +266,7 @@
     //  }, 4000);
     //}
 
-    drawClock();
+    updateClock();
 
     // JOE: looks like we got the beginnings of some clear() method
     $answer.val('');
