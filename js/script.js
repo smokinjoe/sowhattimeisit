@@ -161,8 +161,8 @@
   };
 
   // clock drawing and upating utility methods
-  function draw_clock(){
-    canvas = Raphael("clock_id",200, 200);
+  function drawClock(){
+    canvas = Raphael("clock",200, 200);
     var clock = canvas.circle(100,100,95);
        clock.attr({"fill":"#f5f5f5","stroke":"#444444","stroke-width":"5"})  
        var hour_sign;
@@ -177,22 +177,16 @@
     hour_hand.attr({stroke: "#444444", "stroke-width": 6});
     minute_hand = canvas.path("M100 100L100 40");
     minute_hand.attr({stroke: "#444444", "stroke-width": 4});
-    second_hand = canvas.path("M100 110L100 25");
-    second_hand.attr({stroke: "#444444", "stroke-width": 2}); 
     var pin = canvas.circle(100, 100, 5);
     pin.attr("fill", "#000000");    
-    update_clock()
-    //setInterval("update_clock()",1000);
+    updateClock()
   }
   
-  function update_clock(){
+  function updateClock(){
     var hours = +currentProblem.displayHour;
     var minutes = currentProblem.minute;
-    var seconds = 0;
     hour_hand.rotate(30*hours+(minutes/2.5), 100, 100);
     minute_hand.rotate(6*minutes, 100, 100);
-    second_hand.rotate(6*seconds, 100, 100);
-    
   }
 
   // public methods
@@ -249,7 +243,7 @@
     //  }, 4000);
     //}
 
-    draw_clock();
+    drawClock();
 
     // JOE: looks like we got the beginnings of some clear() method
     $answer.val('');

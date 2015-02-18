@@ -44,8 +44,12 @@ html {
   margin-top: 15px;
 }
 
-.analog-clock {
+.digital-clock {
   display: none;
+}
+
+.analog-clock {
+  text-align: center;
 }
 
 .offset-container {

@@ -6,7 +6,6 @@
   <link rel="stylesheet" type="text/css" href="css/normalize.css">
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
-  <link rel="stylesheet" type="text/css" href="css/clock.css" />
   <link rel="stylesheet" type="text/css" href="css/styles.css" />
 </head>
 <body>
@@ -26,21 +25,22 @@
         </div>
         <div class="problem-container">
           <div class="time-container">
-            <strong>Time is</strong> 
-              <div class="digital-clock">
-                <span class="hours">00</span> : <span class="minutes">00</span> <span class="ampm"></span>
-              </div>
-              <div class="analog-clock">
-                <div id="clock_id"></div>
-              </div>
+            <div class="digital-clock">
+              <strong>The time is</strong> 
+              <span class="hours">00</span> : <span class="minutes">00</span> <span class="ampm"></span>
+            </div>
+            <div class="analog-clock">
+              <h4>This clock is <span class="offset">0</span></h4>
+              <div id="clock"></div>
+            </div>
           </div>
-          <div class="offset-container">
+          <div class="offset-container hidden">
             <strong>Clock is</strong> <span class="offset">0</span>
           </div>
         </div>
 
         <div class="answer-container">
-          <h4>So what time is it? <small>(You can leave off am/pm)</small></h4>
+          <h4>So, what time is it?</h4>
           <div class="input-group">
             <input type="text" class="answer form-control" />
             <span class="input-group-btn">
