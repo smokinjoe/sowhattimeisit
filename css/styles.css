@@ -88,3 +88,15 @@ html {
   border: 1px solid #028CFF;
   background: #D6ECFF;
 }
+
+.clear {
+  clear: both;
+}
+
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
+}

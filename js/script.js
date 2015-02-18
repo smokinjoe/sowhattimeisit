@@ -21,6 +21,7 @@
       $submitBtn = $('.submit-answer'),
       $populateBtn = $('.populate'),
       $showAnswerBtn = $('.show-answer'),
+      $showHintBtn = $('.show-hint'),
       $getStartedBtn = $('.get-started'),
       $rightScore = $('.num-right'),
       $wrongScore = $('.num-wrong'),
@@ -304,6 +305,11 @@
     }
   };
 
+  Pop.showHint = function () {
+    var theTime = currentProblem.displayHour + ':' + currentProblem.minute;
+    displayMessage('The time is, ' + theTime, 'info', 2500);
+  };
+
   Pop.debug = function (options) {
     options = options || {};
 
@@ -368,6 +374,10 @@
 
   $showAnswerBtn.on('click', function () {
     Pop.showAnswer();
+  });
+
+  $showHintBtn.on('click', function () {
+    Pop.showHint();
   });
 
   init();
