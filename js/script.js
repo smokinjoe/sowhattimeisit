@@ -59,7 +59,7 @@
     for (var i = 0; i < 24; i++) {
       hours.push(i);
     }
-    for (var i = 0; i < 60; i++) {
+    for (var i = 6; i < 54; i++) {
       minutes.push(i);
     }
 
@@ -338,7 +338,7 @@
     }
 
     updateClock();
-
+    $('.digital-clock').show();
   };
 
   // event bindings
