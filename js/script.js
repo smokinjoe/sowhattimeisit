@@ -114,8 +114,6 @@
       hoursMatch = true;
     }
 
-    console.log("JOE: hoursMatch: ", hoursMatch);
-
     // totally +cheating
     if (currentProblem.minute == +currentAnswer.minute) {
       minutesMatch = true;
@@ -338,6 +336,8 @@
       currentProblem.offset = options.offset;
       $offset.html(currentProblem.offset);
     }
+
+    updateClock();
 
   };
 
