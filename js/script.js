@@ -123,9 +123,6 @@
       var lowEnd = currentAnswer.minute > 4 ? +currentAnswer.minute - 5 : 4;
       var highEnd = currentAnswer.minute < 54 ? +currentAnswer.minute + 5 : 59;
 
-      console.log("JOE: lowEnd: ", lowEnd);
-      console.log("JOE: highEnd: ", highEnd);
-
       if (lowEnd <= currentAnswer.minute <= highEnd) {
         minutesMatch = true;
       }
