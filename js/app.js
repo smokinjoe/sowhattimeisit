@@ -1,6 +1,19 @@
 var app = {};
 
-app.Problem = function () {
+app.Defaults = (function () {
+  this.hours = [];
+  this.minutes = [];
+
+  for (var i = 0; i < 24; i++) {
+   this.hours.push(i);
+  }
+  for (var i = 6; i < 54; i++) {
+   this.minutes.push(i);
+  }
+}());
+
+app.Problem = {};
+app.Problem.init = function () {
   var AM = 'am',
       PM = 'pm';
 
@@ -16,7 +29,7 @@ app.Problem = function () {
   OFFSETTEXT[SLOW] = ' hour(s) slow.';
 
   this.hour = m.prop(app.utility.getRandomInt(4, 24));
-  this.minute = m.prop(app.utility.randomArrValue(vm.minutes));
+  this.minute = m.prop(app.utility.randomArrValue(app.Defaults.minutes));
   this.offset = m.prop(app.utility.getRandomInt(0, 3));
 
   if (this.offset() !== 0) {
@@ -42,7 +55,8 @@ app.Problem = function () {
   }
 };
 
-app.Answer = function (data) {
+app.Answer = {};
+app.Answer.init = function (data) {
   var arr = [];
   if (data.answer) {
     arr = data.answer.split(":")
@@ -54,7 +68,8 @@ app.Answer = function (data) {
   this.minute = m.prop(arr[1]);
 };
 
-app.Clock = function () {
+app.Clock = {};
+app.Clock.init = function () {
   this.canvas = {};
   this.clock = {};
   this.hourHand = {};
@@ -62,7 +77,7 @@ app.Clock = function () {
 };
 
 // raphael clock methods
-app.Clock.prototype.drawClock = function () {
+app.Clock.drawClock = function () {
   //var hour_sign;
   this.canvas = Raphael("clock", 200, 200);
   this.clock = this.canvas.circle(100, 100, 95);
@@ -81,7 +96,7 @@ app.Clock.prototype.drawClock = function () {
   //this.updateClock()
 };
 
-app.Clock.prototype.updateClock = function (currentProblem) {
+app.Clock.updateClock = function (currentProblem) {
   if (this.hourHand.remove) {
     this.hourHand.remove();
   }
@@ -98,45 +113,23 @@ app.Clock.prototype.updateClock = function (currentProblem) {
 };
 
 app.utility = {};
-app.utility.prototype.randomArrValue = function (arr) {
+app.utility.randomArrValue = function (arr) {
   var key = (Math.random() * 0x10000 | 0) % arr.length;
   return arr[key];
 };
-app.utility.prototype.getRandomInt = function (min, max) {
+app.utility.getRandomInt = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-app.vm = (function () {
-  var vm = {};
-  vm.init = function () {
-    vm.hours = [];
-    vm.minutes = [];
-    // get this shit started!
-    for (var i = 0; i < 24; i++) {
-      vm.hours.push(i);
-    }
-    for (var i = 6; i < 54; i++) {
-      vm.minutes.push(i);
-    }
+app.controller = function () {
+  var ctrl = this;
 
-    vm.newProblem = function () {
-      return new app.Problem();
-    };
 
-    vm.populate = function () {
-      var offsetText = 'on time.';
 
-    };
+  console.log("JOE: controller");
+};
 
-    // clock stuffs
-    vm.clock = new app.Clock();
-    vm.problem = new app.Problem();
-  };
-
-  return vm;
-}());
-
-app.view = function (vm) {
+app.view = function (ctrl) {
   return m("div.game-container", [
            m("div.game-box", [
              m("div.score-container.well", [
@@ -180,9 +173,9 @@ app.view = function (vm) {
          ]);
 };
 
-app.vm.init();
-m.render(document.getElementById("app-container"), app.view(app.vm));
-app.vm.clock.drawClock();
+//app.vm.init();
+//m.render(document.getElementById("app-container"), app.view(app.vm));
+m.module(document.getElementById("app-container"), app);
 
 
 
