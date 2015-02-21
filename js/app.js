@@ -1,6 +1,6 @@
 var app = {};
 
-app.Problem = function (data) {
+app.Problem = function () {
   var AM = 'am',
       PM = 'pm';
 
@@ -8,13 +8,16 @@ app.Problem = function (data) {
   AMPMTEXT[AM] = ' in the morning.';
   AMPMTEXT[PM] = ' in the afternoon.';
 
+  var FAST = 'fast',
+      SLOW = 'slow';
+
   var OFFSETTEXT = {};
   OFFSETTEXT[FAST] = ' hour(s) fast.';
   OFFSETTEXT[SLOW] = ' hour(s) slow.';
 
-  this.hour = m.prop(data.hour);
-  this.minute = m.prop(data.minute);
-  this.offset = m.prop(data.offset);
+  this.hour = m.prop(app.utility.getRandomInt(4, 24));
+  this.minute = m.prop(app.utility.randomArrValue(vm.minutes));
+  this.offset = m.prop(app.utility.getRandomInt(0, 3));
 
   if (this.offset() !== 0) {
     this.offsetText = this.offset() > 0 ? m.prop(OFFSETTEXT[SLOW]) : m.prop(OFFSETTEXT[FAST]);
@@ -52,16 +55,17 @@ app.Answer = function (data) {
 };
 
 app.Clock = function () {
-  this.canvas = Raphael("clock", 200, 200);
-  //this.clock = this.canvas.circle(100, 100, 95);
-
-  //this.hourHand = {};
-  //this.minuteHand = {};
+  this.canvas = {};
+  this.clock = {};
+  this.hourHand = {};
+  this.minuteHand = {};
 };
 
 // raphael clock methods
 app.Clock.prototype.drawClock = function () {
   //var hour_sign;
+  this.canvas = Raphael("clock", 200, 200);
+  this.clock = this.canvas.circle(100, 100, 95);
 
   this.clock.attr({"fill":"#f5f5f5","stroke":"#444444","stroke-width":"5"});
   for(i=0;i<12;i++){
@@ -74,7 +78,7 @@ app.Clock.prototype.drawClock = function () {
   var pin = this.canvas.circle(100, 100, 5);
   pin.attr("fill", "#000000");    
 
-  this.updateClock()
+  //this.updateClock()
 };
 
 app.Clock.prototype.updateClock = function (currentProblem) {
@@ -93,6 +97,14 @@ app.Clock.prototype.updateClock = function (currentProblem) {
   this.minuteHand.rotate(6 * currentProblem.minute(), 100, 100);
 };
 
+app.utility = {};
+app.utility.prototype.randomArrValue = function (arr) {
+  var key = (Math.random() * 0x10000 | 0) % arr.length;
+  return arr[key];
+};
+app.utility.prototype.getRandomInt = function (min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
 
 app.vm = (function () {
   var vm = {};
@@ -107,29 +119,24 @@ app.vm = (function () {
       vm.minutes.push(i);
     }
 
-    // utility methods
-    vm.randomArrValue = function (arr) {
-      var key = (Math.random() * 0x10000 | 0) % arr.length;
-      return arr[key];
+    vm.newProblem = function () {
+      return new app.Problem();
     };
 
-    vm.randomOffset = function () {
-      return -vm.getRandomInt(0,3);
-    };
+    vm.populate = function () {
+      var offsetText = 'on time.';
 
-    vm.getRandomInt = function (min, max) {
-      return Math.floor(Math.random() * (max - min + 1)) + min;
     };
 
     // clock stuffs
     vm.clock = new app.Clock();
-    vm.clock.drawClock();
+    vm.problem = new app.Problem();
   };
 
   return vm;
 }());
 
-app.view = function () {
+app.view = function (vm) {
   return m("div.game-container", [
            m("div.game-box", [
              m("div.score-container.well", [
@@ -163,7 +170,7 @@ app.view = function () {
                  ])
                ]),
                m("div.btn-group.right", [
-                 m("button.js-show-hint.btn-btn-default.btn-sm", "Show hint"),
+                 m("button.js-show-hint.btn.btn-default.btn-sm", "Show hint"),
                  m("button.js-show-answer.btn.btn-default.btn-sm", "Show answer")
                ]),
                m("div.clear")
@@ -174,10 +181,8 @@ app.view = function () {
 };
 
 app.vm.init();
-m.render(document.getElementById("app-container"), app.view());
-//app.vm.clock.drawClock();
-
-
+m.render(document.getElementById("app-container"), app.view(app.vm));
+app.vm.clock.drawClock();
 
 
 
